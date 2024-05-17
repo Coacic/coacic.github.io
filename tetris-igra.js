@@ -124,14 +124,14 @@ function renderNextFrame() {
       // if ($(tdStr).hasClass("blocks")) {
       //   continue;
       // }
-      console.log($(tdStr).css("background-color"));
+      // console.log($(tdStr).css("background-color"));
       if (
         $(tdStr).css("background-color") != "rgb(240, 240, 240)" &&
         $(tdStrPrev).hasClass("block") &&
         $(tdStrAfter).hasClass("player")
       ) {
         $(tdStr).css("background-color", "#f0f0f0");
-        console.log("ima");
+        // console.log("ima");
       }
       if ($(tdStr).hasClass("block") || $(tdStrPrev).hasClass("block"))
         continue;
@@ -631,9 +631,9 @@ function startRender(block) {
     } else {
       element.css("background-color", "#f0f0f0");
     }
-    if (j == 4 && randomColor == "#f0f0f0") {
-      console.log("Jeste");
-    }
+    // if (j == 4 && randomColor == "#f0f0f0") {
+    //   console.log("Jeste");
+    // }
     // console.log(element.css("background-color"));
     i++;
   }
