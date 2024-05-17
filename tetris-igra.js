@@ -162,20 +162,22 @@ function renderNextFrame() {
       let str = ".td" + i + "_" + j;
       // let strPrev = ".td" + i - 1 + "_" + j;
       if ($(str).hasClass("destroyed")) {
+        $(str).removeClass("destroyed");
         for (let index = i; index > 0; index--) {
           let curr = ".td" + index + "_" + j;
           let prev = ".td" + (index - 1) + "_" + j;
-          if ($(curr).hasClass("destroyed") && $(prev).hasClass("block")) {
-            $(curr)
-              .removeClass("destroyed")
-              .css("background-color", $(prev).css("background-color"));
-          } else if ($(curr).hasClass("block") && $(prev).hasClass("block")) {
+          if (!$(prev).hasClass("player")) {
             $(curr).css("background-color", $(prev).css("background-color"));
-          } else if ($(curr).hasClass("block") && !$(prev).hasClass("block")) {
+            if ($(prev).hasClass("block")) {
+              $(curr).addClass("block");
+              $(prev).removeClass("block");
+            }
+            if ($(prev).hasClass("destroyed")) {
+              $(curr).addClass("destroyed");
+              $(prev).removeClass("destroyed");
+            }
+          } else {
             $(curr).css("background-color", "#f0f0f0").removeClass("block");
-            break;
-          } else if (!$(curr).hasClass("block")) {
-            $(curr).removeClass("destroyed");
             break;
           }
         }
@@ -187,6 +189,38 @@ function renderNextFrame() {
       }
     }
   }
+  //Original destroy
+  // for (let i = 19; i > 0; i--) {
+  //   for (let j = 0; j < 10; j++) {
+  //     //for each destroyed tile, move every other one downwards
+  //     let str = ".td" + i + "_" + j;
+  //     // let strPrev = ".td" + i - 1 + "_" + j;
+  //     if ($(str).hasClass("destroyed")) {
+  //       for (let index = i; index > 0; index--) {
+  //         let curr = ".td" + index + "_" + j;
+  //         let prev = ".td" + (index - 1) + "_" + j;
+  //         if ($(curr).hasClass("destroyed") && $(prev).hasClass("block")) {
+  //           $(curr)
+  //             .removeClass("destroyed")
+  //             .css("background-color", $(prev).css("background-color"));
+  //         } else if ($(curr).hasClass("block") && $(prev).hasClass("block")) {
+  //           $(curr).css("background-color", $(prev).css("background-color"));
+  //         } else if ($(curr).hasClass("block") && !$(prev).hasClass("block")) {
+  //           $(curr).css("background-color", "#f0f0f0").removeClass("block");
+  //           break;
+  //         } else if (!$(curr).hasClass("block")) {
+  //           $(curr).removeClass("destroyed");
+  //           break;
+  //         }
+  //       }
+  //       // $(str)
+  //       //   .addClass("block")
+  //       //   .removeClass("destroyed")
+  //       // .css("background-color", $(strPrev).css("background-color"));
+  //       // $(strPrev).addClass("move");
+  //     }
+  //   }
+  // }
 
   //Block logic for destruction
   let arrayOfSelectedBlocks = $(".block:not(.destroyed)");
@@ -217,7 +251,10 @@ function renderNextFrame() {
       for (let j = 0; j < 10; j++) {
         let str = ".td" + i + "_" + j;
         blck = $(str);
-        $(blck).css("background-color", "red").addClass("destroyed");
+        $(blck)
+          .css("background-color", "red")
+          .addClass("destroyed")
+          .removeClass("block");
       }
       numOfElementsInEachCol[i] = 0;
     }
