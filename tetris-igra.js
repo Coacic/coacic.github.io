@@ -119,10 +119,20 @@ function renderNextFrame() {
         continue;
       }
       let tdStrPrev = ".td" + (i - 1) + "_" + j;
+      let tdStrAfter = ".td" + (i + 1) + "_" + j;
       // //   console.log("writing from " + tdStrPrev + " to " + tdStr);
       // if ($(tdStr).hasClass("blocks")) {
       //   continue;
       // }
+      console.log($(tdStr).css("background-color"));
+      if (
+        $(tdStr).css("background-color") != "rgb(240, 240, 240)" &&
+        $(tdStrPrev).hasClass("block") &&
+        $(tdStrAfter).hasClass("player")
+      ) {
+        $(tdStr).css("background-color", "#f0f0f0");
+        console.log("ima");
+      }
       if ($(tdStr).hasClass("block") || $(tdStrPrev).hasClass("block"))
         continue;
       $(tdStr).css("background-color", $(tdStrPrev).css("background-color"));
