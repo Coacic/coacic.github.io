@@ -653,7 +653,7 @@ function StartGame() {
   if (players.length == 0) {
     let res = spawnNextBlock();
     if (res == 1) {
-      alert("Kraj igre");
+      // alert("Kraj igre");
       appendToStorage("names", username + " ");
       appendToStorage("scores", score + " ");
       location.href = "tetris-rezultati.html";
