@@ -22,11 +22,15 @@ h1 {
   position: absolute;
   text-align: center;
   top: 10%;
+  transform: translateX(30%);
 }
 .container {
-  overflow-x: auto; /* Enable horizontal scrolling if needed */
   margin: 20px auto;
   padding: 20px;
   align-items: center;
   text-align: center;
+}
+.score {
+  position: relative;
+  margin: auto;
 }

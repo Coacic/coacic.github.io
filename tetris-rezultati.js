@@ -12,5 +12,5 @@ function clearStorage() {
   $(".table").empty();
 }
 function returnToTheGame() {
-  location.href = "";
+  location.href = "index.html";
 }

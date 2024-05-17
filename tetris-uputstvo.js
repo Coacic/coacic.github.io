@@ -1,3 +1,3 @@
 function returnToTheGame() {
-  location.href = "";
+  location.href = "index.html";
 }
