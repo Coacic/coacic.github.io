@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetris rezultati</title>
+    <link rel="stylesheet" href="tetris-rezultati.css"></link>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="tetris-rezultati.js"></script>
+  </head>
+  <body onload="init()">
+    <div class="container">
+    <h2>Tetris Game Results</h2>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+    </table>
+    <button onclick="clearStorage()" class="b1" >Clear scores</button><div class="break"></div>
+    <button onclick="returnToTheGame()" class="b2">Return to the game</button>
+</div>
+  </body>
+</html>
