@@ -20,5 +20,13 @@ td {
 h1 {
   display: flex;
   position: absolute;
+  text-align: center;
   top: 10%;
+}
+.container {
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+  margin: 20px auto;
+  padding: 20px;
+  align-items: center;
+  text-align: center;
 }

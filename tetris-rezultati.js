@@ -7,12 +7,10 @@ function init() {
     $(".table").append(elem);
   }
 }
-
 function clearStorage() {
   localStorage.clear();
   $(".table").empty();
 }
-
 function returnToTheGame() {
   location.href = "";
 }

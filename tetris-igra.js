@@ -266,14 +266,14 @@ function renderNextFrame() {
     }
     score += newScore;
     $(".score").text("Score: " + score);
-    console.log(
-      "faktor je " +
-        factor +
-        " newscore je " +
-        newScore +
-        "Krajnji score " +
-        score
-    );
+    // console.log(
+    //   "faktor je " +
+    //     factor +
+    //     " newscore je " +
+    //     newScore +
+    //     "Krajnji score " +
+    //     score
+    // );
     // newScore = +100;
     clearInterval(gameTimeHandle);
     gameTimeHandle = setInterval(StartGame, 1000 - (100 + score / 15));
@@ -634,7 +634,7 @@ function startRender(block) {
     // if (j == 4 && randomColor == "#f0f0f0") {
     //   console.log("Jeste");
     // }
-    // console.log(element.css("background-color"));
+    // console.log(element.css("background-color"))
     i++;
   }
   // console.log(block);
