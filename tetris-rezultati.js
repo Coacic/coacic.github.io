@@ -12,5 +12,5 @@ function clearStorage() {
   $(".table").empty();
 }
 function returnToTheGame() {
-  location.href = "index.html";
+  location.href = "tetris-igra.html";
 }
