@@ -9,7 +9,8 @@ function init() {
 }
 function clearStorage() {
   localStorage.clear();
-  $(".table").empty();
+  $(".table").find("tr:gt(0)").remove();
+  // $(".table").empty();
 }
 function returnToTheGame() {
   location.href = "tetris-igra.html";

@@ -13,7 +13,8 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 h1,
-h2 {
+h2,
+h3 {
   text-align: center;
   color: #333;
 }
@@ -49,3 +50,38 @@ b2 {
   padding: auto;
   margin-top: 4px;
 }
+td {
+  border: 1px solid black;
+  text-align: center;
+  padding-top: 15px;
+}
+table {
+  /* display: flex; */
+  width: 100%;
+  justify-content: right;
+  align-items: center;
+  text-align: center;
+}
+.table-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tezina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+}
+/* input[type="checkbox"] {
+  display: none;
+} */
+/* label + img input[type="checkbox"] {
+  opacity: 0.1;
+}
+label + img input[type="checkbox"]:checked {
+  opacity: 1;
+  border: 2px solid blue;
+} */

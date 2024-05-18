@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="tetris-uputstvo.js"></script>
   </head>
-  <body>
+  <body onload="init()">
     <!-- <h1>Upisite ime i potvrdite, igra ce zatim poceti</h1>
     <h1>Kontrole:</h1>
     <h2>Pomeraj u desno - strelica u desno</h2>
@@ -29,6 +29,21 @@
         <li><strong>Strelica na gore:</strong> Rotiranje bloka</li>
         <li><strong>Space:</strong> Propadanje bloka do dole</li>
       </ul>
+      <div class="table-content">
+      <table>
+        <tr>
+            <td class="tdblock1"><label for="block1"><img src="tetris-dodatno/box.png"></label><br><input type="checkbox" class="block1" id="block1" name="blockSelect" value="block1"></input></td>
+            <td class="tdblock2"><label for="block2"><img src="tetris-dodatno/line.png"></label><br><input type="checkbox" class="block2" id="block2" name="blockSelect" value="block2"></input></td>
+            <td class="tdblock3"><label for="block3"><img src="tetris-dodatno/lProfile.png"></label><br><input type="checkbox" class="block3" id="block3" name="blockSelect" value="block3"></input></td>
+            <td class="tdblock4"><label for="block4"><img src="tetris-dodatno/reverseLProfile.png"></label><br><input type="checkbox" class="block4" id="block4" name="blockSelect" value="block4"></input></td>
+            <td class="tdblock5"><label for="block5"><img src="tetris-dodatno/z.png"></label><br><input type="checkbox" class="block5" id="block5" name="blockSelect" value="block5"></input></td>
+            <td class="tdblock6"><label for="block6"><img src="tetris-dodatno/reverseZ.png"></label><br><input type="checkbox" class="block6" id="block6" name="blockSelect" value="block6"></input></td>
+            <td class="tdblock7"><label for="block7"><img src="tetris-dodatno/t.png"></label><br><input type="checkbox" class="block7" id="block7" name="blockSelect" value="block7"></input></td>
+        </tr>
+    </table>
+      </div>
+      <input type="range" min="0" max="2" value="1" id="tezina" class="tezina">
+      <h3>Tezina: Srednje</h3>
       <button onclick="returnToTheGame()" class="b1">Pokrenite igru</button>
       <button onclick="returnToTheResults()" class="b2">Idi na rezultate</button>
     </div>

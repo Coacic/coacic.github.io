@@ -26,6 +26,9 @@ let fields = [];
 let fieldsJQ = [];
 let score = 0;
 let calculate = true;
+let clickedBoxesNums;
+let clickedBoxesArr = [];
+let gameTimeHandle;
 
 function appendToStorage(name, data) {
   var old = localStorage.getItem(name);
@@ -464,6 +467,9 @@ function moveRight() {
 
 function dropDown() {
   while ($(".player").length != 0) renderNextFrame();
+  clearInterval(gameTimeHandle);
+  gameTimeHandle = setInterval(StartGame, 1000 - (100 + score / 15));
+  StartGame();
 }
 
 function moveDown() {
@@ -643,13 +649,16 @@ function startRender(block) {
 function spawnNextBlock() {
   let num = Math.floor(Math.random() * 10) % 7;
   // console.log(num);
+  while (!clickedBoxesArr.includes(num.toString())) {
+    num = Math.floor(Math.random() * 10) % 7;
+  }
   let res = startRender(blocksValues[num]);
   if (res == 1) return 1;
 }
 
 function StartGame() {
-  let players = $(".player");
   renderNextFrame();
+  let players = $(".player");
   if (players.length == 0) {
     let res = spawnNextBlock();
     if (res == 1) {
@@ -663,66 +672,79 @@ function StartGame() {
 
 function init() {
   $(document).ready(() => {
-    $(".score").text("Score: " + score);
-    state = "playing";
-    started = true;
-    let rows = 20;
-    let cols = 10;
-    let gameTimeHandle;
-    grid = new Array(20);
-    for (let i = 0; i < grid.length; i++) {
-      grid[i] = new Array(10);
-    }
-    let tetrisGrid = document.getElementById("tetris-grid");
-    for (let i = 0; i < rows; i++) {
-      let row = document.createElement("tr");
-      let trAttr = "tr" + i;
-      row.setAttribute("class", trAttr);
-      for (let j = 0; j < cols; j++) {
-        let cell = document.createElement("td");
-        let tdAttr = "td" + i + "_" + j;
-        cell.setAttribute("class", tdAttr);
-        grid[i][j] = $(cell);
-        row.appendChild(cell);
+    let clickedBoxes = localStorage.getItem("clickedBoxes");
+    let tezina = localStorage.getItem("tezina");
+    console.log(tezina);
+    if (!clickedBoxes) {
+      alert("Niste izabrali ni jedan blok za igru");
+      location.href = "tetris-uputstvo.html";
+    } else {
+      clickedBoxesArr = clickedBoxes.split(",");
+      $(".score").text("Score: " + score);
+      state = "playing";
+      started = true;
+      let rows = 20;
+      let cols = 10;
+      grid = new Array(20);
+      for (let i = 0; i < grid.length; i++) {
+        grid[i] = new Array(10);
       }
-      tetrisGrid.appendChild(row);
-    }
-    addEventListener("keypress", (event) => {
-      if (event.key == " ") {
-        dropDown();
+      let tetrisGrid = document.getElementById("tetris-grid");
+      for (let i = 0; i < rows; i++) {
+        let row = document.createElement("tr");
+        let trAttr = "tr" + i;
+        row.setAttribute("class", trAttr);
+        for (let j = 0; j < cols; j++) {
+          let cell = document.createElement("td");
+          let tdAttr = "td" + i + "_" + j;
+          cell.setAttribute("class", tdAttr);
+          grid[i][j] = $(cell);
+          row.appendChild(cell);
+        }
+        tetrisGrid.appendChild(row);
       }
-      if (event.key == "r") {
-        restartGame();
-      }
-    });
+      addEventListener("keypress", (event) => {
+        if (event.key == " ") {
+          dropDown();
+        }
+        if (event.key == "r") {
+          restartGame();
+        }
+      });
 
-    addEventListener("keydown", (event) => {
-      if (event.key == "ArrowLeft") {
-        moveLeft();
-      }
-      if (event.key == "ArrowRight") {
-        moveRight();
-      }
-      if (event.key == "ArrowDown") {
-        moveDown();
-      }
-      if (event.key == "ArrowUp") {
-        rotateBlock();
-      }
-    });
+      addEventListener("keydown", (event) => {
+        if (event.key == "ArrowLeft") {
+          moveLeft();
+        }
+        if (event.key == "ArrowRight") {
+          moveRight();
+        }
+        if (event.key == "ArrowDown") {
+          moveDown();
+        }
+        if (event.key == "ArrowUp") {
+          rotateBlock();
+        }
+      });
 
-    fieldsJQ = [
-      $(".td0_3"),
-      $(".td0_4"),
-      $(".td0_5"),
-      $(".td0_6"),
-      $(".td1_3"),
-      $(".td1_4"),
-      $(".td1_5"),
-      $(".td1_6"),
-    ];
+      fieldsJQ = [
+        $(".td0_3"),
+        $(".td0_4"),
+        $(".td0_5"),
+        $(".td0_6"),
+        $(".td1_3"),
+        $(".td1_4"),
+        $(".td1_5"),
+        $(".td1_6"),
+      ];
+      username = prompt("Type in your username:");
+      if (username == "") username = "Unknown_Player";
+      gameTimeHandle = setInterval(StartGame, 1000);
+    }
   });
-  username = prompt("Type in your username:");
-  if (username == "") username = "Unknown_Player";
-  gameTimeHandle = setInterval(StartGame, 1000);
+  // if (clickedBoxes == "") {
+  //   clearInterval(gameTimeHandle);
+  //   alert("Niste izabrali ni jedan blok za igru");
+  //   location.html = "tetris-uputstvo.html";
+  // } else {
 }
