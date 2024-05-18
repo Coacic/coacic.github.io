@@ -8,15 +8,18 @@ body {
   height: 100vh;
   background-color: #f0f0f0;
 }
+
 table {
   border-collapse: collapse;
   border: 2px solid #333;
 }
+
 td {
   width: 30px;
   height: 30px;
   border: 1px solid #ccc;
 }
+
 h1 {
   display: flex;
   position: absolute;
@@ -24,12 +27,14 @@ h1 {
   top: 10%;
   transform: translateX(30%);
 }
+
 .container {
   margin: 20px auto;
   padding: 20px;
   align-items: center;
   text-align: center;
 }
+
 .score {
   position: relative;
   margin: auto;

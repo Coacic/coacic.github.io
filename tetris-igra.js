@@ -18,7 +18,6 @@ const blocksValues = [
   "01001110",
 ];
 
-// const centerPoints = ["", "1", "5", "5", "4", "5", 3];
 let arrayOfBlocks = [];
 let grid;
 let username;
@@ -33,11 +32,11 @@ let difficulty;
 
 function intervalBasedOnDifficulty(difficultyString) {
   if (difficultyString == "Lako") {
-    return 1000;
+    return 1000 - (100 + score / 20);
   } else if (difficultyString == "Srednje") {
-    return 900;
+    return 900 - (100 + score / 15);
   } else {
-    return 800;
+    return 850 - (100 + score / 12);
   }
 }
 
@@ -83,14 +82,10 @@ function repaintGrid() {
     let trAttr = "tr" + i;
     row.setAttribute("class", trAttr);
     for (let j = 0; j < 10; j++) {
-      // let tdStr = ".td" + i + "_" + j;
-      // $(tdStr).attr("background-color", grid[i][j].attr("background-color"));
-      // console.log(grid[i][j]);
       let cell = grid[i][j];
       if ($(cell).hasClass("player")) {
         $(cell).removeClass("player").css("background-color", "#f0f0f0");
       }
-      // console.log(arrayOfBlocks[iterPlayers]);
       row.append(cell[0]);
     }
     tetrisGrid.appendChild(row);
@@ -103,12 +98,10 @@ function repaintGrid() {
         .css("background-color", arrayOfBlocks[iterPlayers].color);
       arrayOfBlocks[index].ref = $(cell);
     }
-    // $(tdStr).replaceWith(grid[i][j]);
   }
 }
 
 function renderNextFrame() {
-  // console.log(arrayOfBlocks);
   let didHitBlock = false;
   let playerBlocks = $(".player");
   let collision = ["0", "0", "0", "0"];
@@ -123,17 +116,8 @@ function renderNextFrame() {
     playerBlocks.addClass("block").removeClass("player");
     arrayOfBlocks.length = 0;
   }
-  // console.log(collision);
   for (let i = 19; i > 0; i--) {
     for (let j = 0; j < 10; j++) {
-      // let tdStrNext = ".td" + (i + 1) + "_" + j;
-      // console.log($(".player"));
-      // console.log("\n");
-      // if ($(tdStrNext).hasClass("blocks")) {
-      //   let blocks = $(".player");
-      //   blocks.addClass("blocks").removeClass("player");
-      //   continue;
-      // }
       let tdStr = ".td" + i + "_" + j;
       if (i == 19 && $(tdStr).hasClass("player")) {
         let blocks = $(".player");
@@ -147,18 +131,12 @@ function renderNextFrame() {
       }
       let tdStrPrev = ".td" + (i - 1) + "_" + j;
       let tdStrAfter = ".td" + (i + 1) + "_" + j;
-      // //   console.log("writing from " + tdStrPrev + " to " + tdStr);
-      // if ($(tdStr).hasClass("blocks")) {
-      //   continue;
-      // }
-      // console.log($(tdStr).css("background-color"));
       if (
         $(tdStr).css("background-color") != "rgb(240, 240, 240)" &&
         $(tdStrPrev).hasClass("block") &&
         $(tdStrAfter).hasClass("player")
       ) {
         $(tdStr).css("background-color", "#f0f0f0");
-        // console.log("ima");
       }
       if ($(tdStr).hasClass("block") || $(tdStrPrev).hasClass("block"))
         continue;
@@ -166,14 +144,11 @@ function renderNextFrame() {
       if ($(tdStrPrev).hasClass("player")) {
         let index = findIndexOfField($(tdStr));
         let element = arrayOfBlocks.find((item) => {
-          // console.log(item[ref]);
-          // console.log($(tdStrPrev));
           return item.ref[0] == $(tdStrPrev)[0];
         });
         element.x = index[1];
         element.y = index[0];
         element.ref = $(tdStr);
-        // console.log(element);
         $(tdStr).addClass("player");
         $(tdStrPrev).removeClass("player");
       }
@@ -187,7 +162,6 @@ function renderNextFrame() {
     for (let j = 0; j < 10; j++) {
       //for each destroyed tile, move every other one downwards
       let str = ".td" + i + "_" + j;
-      // let strPrev = ".td" + i - 1 + "_" + j;
       if ($(str).hasClass("destroyed")) {
         $(str).removeClass("destroyed");
         for (let index = i; index > 0; index--) {
@@ -208,50 +182,12 @@ function renderNextFrame() {
             break;
           }
         }
-        // $(str)
-        //   .addClass("block")
-        //   .removeClass("destroyed")
-        // .css("background-color", $(strPrev).css("background-color"));
-        // $(strPrev).addClass("move");
       }
     }
   }
-  //Original destroy
-  // for (let i = 19; i > 0; i--) {
-  //   for (let j = 0; j < 10; j++) {
-  //     //for each destroyed tile, move every other one downwards
-  //     let str = ".td" + i + "_" + j;
-  //     // let strPrev = ".td" + i - 1 + "_" + j;
-  //     if ($(str).hasClass("destroyed")) {
-  //       for (let index = i; index > 0; index--) {
-  //         let curr = ".td" + index + "_" + j;
-  //         let prev = ".td" + (index - 1) + "_" + j;
-  //         if ($(curr).hasClass("destroyed") && $(prev).hasClass("block")) {
-  //           $(curr)
-  //             .removeClass("destroyed")
-  //             .css("background-color", $(prev).css("background-color"));
-  //         } else if ($(curr).hasClass("block") && $(prev).hasClass("block")) {
-  //           $(curr).css("background-color", $(prev).css("background-color"));
-  //         } else if ($(curr).hasClass("block") && !$(prev).hasClass("block")) {
-  //           $(curr).css("background-color", "#f0f0f0").removeClass("block");
-  //           break;
-  //         } else if (!$(curr).hasClass("block")) {
-  //           $(curr).removeClass("destroyed");
-  //           break;
-  //         }
-  //       }
-  //       // $(str)
-  //       //   .addClass("block")
-  //       //   .removeClass("destroyed")
-  //       // .css("background-color", $(strPrev).css("background-color"));
-  //       // $(strPrev).addClass("move");
-  //     }
-  //   }
-  // }
 
   //Block logic for destruction
   let arrayOfSelectedBlocks = $(".block:not(.destroyed)");
-  // console.log(arrayOfSelectedBlocks);
   arrayOfSelectedBlocks.sort((a, b) => {
     return $(a).attr("class").split(" ") < $(b).attr("class").split(" ");
   });
@@ -290,51 +226,34 @@ function renderNextFrame() {
     addScoreValue = 100 * factor;
     for (let index = 0; index < factor; index++) {
       newScore += addScoreValue;
-      if (index == facotr - 1) newScore += scoreBasedOnDifficulty(difficulty);
+      if (index == factor - 1) newScore += scoreBasedOnDifficulty(difficulty);
     }
     score += newScore;
+    console.log(score);
     $(".score").text("Score: " + score);
-    // console.log(
-    //   "faktor je " +
-    //     factor +
-    //     " newscore je " +
-    //     newScore +
-    //     "Krajnji score " +
-    //     score
-    // );
-    // newScore = +100;
+
     clearInterval(gameTimeHandle);
     gameTimeHandle = setInterval(
       StartGame,
-      intervalBasedOnDifficulty(difficulty) - (100 + score / 15)
+      intervalBasedOnDifficulty(difficulty)
     );
-    // let str = $(element).attr("class").split(" ")[0];
-    // str = str.split("d")[1];
-    // str = str.split("_")[0];
-    // numOfElementsInEachCol[str]++;
   }
   if ($(".destroyed").length == 0) calculate = true;
   else calculate = false;
-  // return factor;
-  // console.log(arrayOfBlocks);
 }
 
 function findIndexOfField(item) {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-      // console.log($(grid[i][j]).attr("class").split(" ")[0]);
-      // console.log($(item).attr("class").split(" ")[0]);
       let classGrid = $(grid[i][j]).attr("class");
       if (classGrid) {
         classGrid = classGrid.split(" ")[0];
       } else {
-        // console.log("class grid" + classGrid);
       }
       let itemGrid = $(item).attr("class");
       if (itemGrid) {
         itemGrid = itemGrid.split(" ")[0];
       } else {
-        // console.log("item grid " + item);
       }
       if (classGrid == itemGrid) {
         return [i, j];
@@ -395,20 +314,11 @@ function getCollision(field) {
     leftField[1] < 0
   )
     str[3] = "1";
-  // if (indexOfField[0] == 19) {
-  //   str[2] = "1";
-  // }
   return str;
 }
 
 function moveLeft() {
   let playerFields = $(".player");
-  // for (let index = 0; index < playerFields.length; index++) {
-  //   coordArr.push(findIndexOfField(playerFields[index]));
-  // }
-  // coordArr.sort((a, b) => {
-  //   return a[0] - b[0];
-  // });
   for (let index = 0; index < playerFields.length; index++) {
     let collision = getCollision(playerFields[index]);
     if (collision[3] == "1") return -1;
@@ -416,11 +326,8 @@ function moveLeft() {
   for (let index = 0; index < playerFields.length; index++) {
     let cord = findIndexOfField(playerFields[index]);
     let collision = getCollision(playerFields[index]);
-    // console.log(cord);
-    // console.log(playerFields[index]);
     let tmp;
     if (collision[3] == "0" && cord[1] - 1 >= 0) {
-      // grid[cord[0]][cord[1] - 1] = $(grid[cord[0]][cord[1]]);
       let element = arrayOfBlocks.find((item) => {
         return item.ref[0] == $(playerFields[index])[0];
       });
@@ -432,38 +339,18 @@ function moveLeft() {
         "background-color",
         grid[cord[0]][cord[1]].css("background-color")
       );
-      // console.log(grid[cord[0]][cord[1]].css("background-color"));
       grid[cord[0]][cord[1]].css("background-color", "#f0f0f0");
       grid[cord[0]][cord[1]].removeClass("player");
-      // tmp = $(grid[cord[0]][cord[1] - 1]);
-      // grid[cord[0]][cord[1]] = $(tmp);
     }
-    // console.log($(grid[cord[0]][cord[1]]).css("background-color"));
-    // console.log($(grid[cord[0]][cord[1] - 1]).css("background-color"));
-    // console.log($(tmp).css("background-color"));
     let cssField = $(playerFields[index]).css("background-color");
-    // repaintGrid();
-    // console.log(cssField);
-    // const element = playerFields[0];
-    // console.log(cord);
   }
-  // checkLeft();
 }
 
 function moveRight() {
   let playerFields = $(".player");
-  // let coordArr = [];
-  // for (let index = 0; index < playerFields.length; index++) {
-  //   coordArr.push(findIndexOfField(playerFields[index]));
-  // }
   playerFields.sort((a, b) => {
     return findIndexOfField(b)[1] - findIndexOfField(a)[1];
   });
-
-  // coordArr.sort((a, b) => {
-  //   return b[1] - a[1];
-  // });
-  // console.log(coordArr);
   for (let index = 0; index < playerFields.length; index++) {
     let collision = getCollision(playerFields[index]);
     if (collision[1] == "1") return -1;
@@ -478,19 +365,14 @@ function moveRight() {
     element.y = cord[0];
     element.x = cord[1] + 1;
     element.ref = $(grid[cord[0]][cord[1] + 1]);
-    // console.log(element);
     $(grid[cord[0]][cord[1] + 1]).addClass("player");
     $(grid[cord[0]][cord[1] + 1]).css(
       "background-color",
       grid[cord[0]][cord[1]].css("background-color")
     );
-    // console.log(grid[cord[0]][cord[1]].css("background-color"));
     grid[cord[0]][cord[1]].css("background-color", "#f0f0f0");
     grid[cord[0]][cord[1]].removeClass("player");
   }
-  // let cssField = $(playerFields[index]).css("background-color");
-  // }
-  // console.log(arrayOfBlocks);
 }
 
 function dropDown() {
@@ -498,7 +380,7 @@ function dropDown() {
   clearInterval(gameTimeHandle);
   gameTimeHandle = setInterval(
     StartGame,
-    intervalBasedOnDifficulty(difficulty) - (100 + score / 15)
+    intervalBasedOnDifficulty(difficulty)
   );
   StartGame();
 }
@@ -559,8 +441,6 @@ function rotateBlock(block) {
   for (let index = 0; index < arrayOfBlocks.length; index++)
     coordinates.push([arrayOfBlocks[index].x, arrayOfBlocks[index].y]);
 
-  // console.log(coordinates);
-  // const blockMatrixBinary = createGrid(coordinates, 20, 10);
   let element = blocksValues.find((item) => {
     return item == arrayOfBlocks[0].type;
   });
@@ -570,9 +450,6 @@ function rotateBlock(block) {
   let name = blockNames[index];
   if (name === "square") return;
   else if (name === "line") {
-    // let centerOfRotation = centerPoints[1];
-    // let centerBlock = arrayOfBlocks[centerOfRotation];
-    // console.log(centerBlock);
     for (let index = 0; index < arrayOfBlocks.length; index++)
       rotatedCoords.push(rotateTile(arrayOfBlocks[2], arrayOfBlocks[index]));
   } else if (name === "lProfile") {
@@ -590,55 +467,14 @@ function rotateBlock(block) {
   } else {
     for (let index = 0; index < arrayOfBlocks.length; index++)
       rotatedCoords.push(rotateTile(arrayOfBlocks[2], arrayOfBlocks[index]));
-    // let centerOfRotation = centerPoints[6];
-    // let centerBlock;
-    // for (let m = 0; m < arrayOfBlocks.length; m++) {
-    //   const block = arrayOfBlocks[m];
-    //   if (block.isCenterBlock == true) {
-    //     centerBlock = block;
-    //     break;
-    //   }
-    // }
-    // Example usage:
-    // const blx = [
-    //   [1, 1, 1], // Example block
-    //   [0, 0, 1],
-    // ];
-    // console.log(kekw(blx));
-    // let res = rotateBlockInGrid(
-    //   blockMatrixBinary,
-    //   centerBlock,
-    //   centerBlock.y,
-    //   centerBlock.x
-    // );
-    // console.log(res);
   }
-  // let collision = ["0", "0", "0", "0"];
   for (let index = 0; index < rotatedCoords.length; index++) {
     let res = checkCollision(rotatedCoords[index]);
     if (res == true) return;
-    // if (res[0] == "1") collision[0] = "1";
-    // if (res[1] == "1") collision[1] = "1";
-    // if (res[2] == "1") collision[2] = "1";
-    // if (res[3] == "1") collision[3] = "1";
   }
-  // if (
-  //   collision[0] == "1" ||
-  //   collision[1] == "1" ||
-  //   collision[2] == "1" ||
-  //   collision[3] == "1"
-  // )
-  // return;
   for (let index = 0; index < arrayOfBlocks.length; index++)
     arrayOfBlocks[index] = rotatedCoords[index];
   repaintGrid();
-  // 0: "square",
-  // 1: "line",
-  // 2: "lProfile",
-  // 3: "lProfileReverse",
-  // 4: "z",
-  // 5: "reverseZ",
-  // 6: "t",
 }
 
 function startRender(block) {
@@ -668,18 +504,12 @@ function startRender(block) {
     } else {
       element.css("background-color", "#f0f0f0");
     }
-    // if (j == 4 && randomColor == "#f0f0f0") {
-    //   console.log("Jeste");
-    // }
-    // console.log(element.css("background-color"))
     i++;
   }
-  // console.log(block);
 }
 
 function spawnNextBlock() {
   let num = Math.floor(Math.random() * 10) % 7;
-  // console.log(num);
   while (!clickedBoxesArr.includes(num.toString())) {
     num = Math.floor(Math.random() * 10) % 7;
   }
@@ -693,7 +523,6 @@ function StartGame() {
   if (players.length == 0) {
     let res = spawnNextBlock();
     if (res == 1) {
-      // alert("Kraj igre");
       appendToStorage("names", username + " ");
       appendToStorage("scores", score + " ");
       location.href = "tetris-rezultati.html";
@@ -712,7 +541,6 @@ function init() {
       clickedBoxesArr = clickedBoxes.split(",");
       $(".score").text("Score: " + score);
       state = "playing";
-      started = true;
       let rows = 20;
       let cols = 10;
       grid = new Array(20);
@@ -772,9 +600,4 @@ function init() {
       gameTimeHandle = setInterval(StartGame, 1000);
     }
   });
-  // if (clickedBoxes == "") {
-  //   clearInterval(gameTimeHandle);
-  //   alert("Niste izabrali ni jedan blok za igru");
-  //   location.html = "tetris-uputstvo.html";
-  // } else {
 }

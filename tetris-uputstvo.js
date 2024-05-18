@@ -29,10 +29,4 @@ function init() {
     index = $(this).val();
     drawText(index);
   });
-
-  // $(".tezina").slider({
-  //   change: function (event, ui) {
-  //     alert(ui.value);
-  //   },
-  // });
 }

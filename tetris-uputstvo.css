@@ -3,37 +3,43 @@ body {
   background-color: #f0f0f0;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
+
 .container {
   width: 80%;
-  margin: 0 auto;
+  margin: auto;
   padding: 20px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 h1,
 h2,
 h3 {
   text-align: center;
   color: #333;
 }
+
 p {
   margin-bottom: 20px;
-  line-height: 1.5;
   color: #555;
   text-align: center;
 }
+
 ul {
   margin-bottom: 20px;
   padding-left: 20px;
   color: #555;
 }
+
 li {
   margin-bottom: 8px;
   text-align: center;
   list-style-type: none;
 }
+
 button {
   display: block;
   justify-content: right;
@@ -42,6 +48,7 @@ button {
   padding: auto;
   margin-bottom: 4px;
 }
+
 b2 {
   display: block;
   justify-content: right;
@@ -50,18 +57,19 @@ b2 {
   padding: auto;
   margin-top: 4px;
 }
+
 td {
-  border: 1px solid black;
   text-align: center;
   padding-top: 15px;
 }
+
 table {
-  /* display: flex; */
-  width: 100%;
+  width: 80%;
   justify-content: right;
   align-items: center;
   text-align: center;
 }
+
 .table-content {
   display: flex;
   justify-content: center;
@@ -69,19 +77,11 @@ table {
 }
 
 .tezina {
-  display: flex;
-  justify-content: center;
+  margin: auto;
+  width: 400px;
+  display: block;
+  justify-content: right;
   align-items: center;
-  margin-top: 10px;
-  width: 100%;
+  padding: auto;
+  margin-top: 30px;
 }
-/* input[type="checkbox"] {
-  display: none;
-} */
-/* label + img input[type="checkbox"] {
-  opacity: 0.1;
-}
-label + img input[type="checkbox"]:checked {
-  opacity: 1;
-  border: 2px solid blue;
-} */
