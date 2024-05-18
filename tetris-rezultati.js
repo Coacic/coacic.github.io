@@ -14,3 +14,7 @@ function clearStorage() {
 function returnToTheGame() {
   location.href = "tetris-igra.html";
 }
+
+function returnToTheInstructions() {
+  location.href = "tetris-uputstvo.html";
+}
