@@ -39,4 +39,13 @@ button {
   align-items: center;
   margin: auto;
   padding: auto;
+  margin-bottom: 4px;
+}
+b2 {
+  display: block;
+  justify-content: right;
+  align-items: center;
+  margin: auto;
+  padding: auto;
+  margin-top: 4px;
 }
