@@ -29,6 +29,27 @@ let calculate = true;
 let clickedBoxesNums;
 let clickedBoxesArr = [];
 let gameTimeHandle;
+let difficulty;
+
+function intervalBasedOnDifficulty(difficultyString) {
+  if (difficultyString == "Lako") {
+    return 1000;
+  } else if (difficultyString == "Srednje") {
+    return 900;
+  } else {
+    return 800;
+  }
+}
+
+function scoreBasedOnDifficulty(difficultyString) {
+  if (difficultyString == "Lako") {
+    return 0;
+  } else if (difficultyString == "Srednje") {
+    return 100;
+  } else {
+    return 200;
+  }
+}
 
 function appendToStorage(name, data) {
   var old = localStorage.getItem(name);
@@ -45,7 +66,10 @@ function restartGame() {
   username = prompt("Type in your username:");
   if (username == "") username = "Unknown_Player";
   clearInterval(gameTimeHandle);
-  gameTimeHandle = setInterval(StartGame, 1000);
+  gameTimeHandle = setInterval(
+    StartGame,
+    intervalBasedOnDifficulty(difficulty)
+  );
 }
 
 function repaintGrid() {
@@ -266,6 +290,7 @@ function renderNextFrame() {
     addScoreValue = 100 * factor;
     for (let index = 0; index < factor; index++) {
       newScore += addScoreValue;
+      if (index == facotr - 1) newScore += scoreBasedOnDifficulty(difficulty);
     }
     score += newScore;
     $(".score").text("Score: " + score);
@@ -279,7 +304,10 @@ function renderNextFrame() {
     // );
     // newScore = +100;
     clearInterval(gameTimeHandle);
-    gameTimeHandle = setInterval(StartGame, 1000 - (100 + score / 15));
+    gameTimeHandle = setInterval(
+      StartGame,
+      intervalBasedOnDifficulty(difficulty) - (100 + score / 15)
+    );
     // let str = $(element).attr("class").split(" ")[0];
     // str = str.split("d")[1];
     // str = str.split("_")[0];
@@ -468,7 +496,10 @@ function moveRight() {
 function dropDown() {
   while ($(".player").length != 0) renderNextFrame();
   clearInterval(gameTimeHandle);
-  gameTimeHandle = setInterval(StartGame, 1000 - (100 + score / 15));
+  gameTimeHandle = setInterval(
+    StartGame,
+    intervalBasedOnDifficulty(difficulty) - (100 + score / 15)
+  );
   StartGame();
 }
 
@@ -673,8 +704,7 @@ function StartGame() {
 function init() {
   $(document).ready(() => {
     let clickedBoxes = localStorage.getItem("clickedBoxes");
-    let tezina = localStorage.getItem("tezina");
-    console.log(tezina);
+    difficulty = localStorage.getItem("tezina");
     if (!clickedBoxes) {
       alert("Niste izabrali ni jedan blok za igru");
       location.href = "tetris-uputstvo.html";
