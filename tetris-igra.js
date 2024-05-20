@@ -238,8 +238,14 @@ function renderNextFrame() {
       intervalBasedOnDifficulty(difficulty)
     );
   }
-  if ($(".destroyed").length == 0) calculate = true;
-  else calculate = false;
+  if ($(".destroyed").length == 0) {
+    calculate = true;
+    let redElements = $("td");
+    redElements.each((index, element) => {
+      if ($(element).css("background-color") == "rgb(255, 0, 0)")
+        $(element).css("background-color", "#f0f0f0");
+    });
+  } else calculate = false;
 }
 
 function findIndexOfField(item) {
@@ -482,7 +488,11 @@ function startRender(block) {
     counterForCenter = 0;
   arrayOfBlocks.length = 0;
   let randomColor = "f";
-  while (randomColor[0] == "f" || randomColor == "f0f0f0")
+  while (
+    randomColor[0] == "f" ||
+    randomColor == "f0f0f0" ||
+    randomColor == "ff0000"
+  )
     randomColor = (Math.random() * 0xfffff * 1000000).toString(16);
   randomColor = "#" + randomColor.slice(0, 6);
   for (let j = 0; j < fieldsJQ.length; j++) {
